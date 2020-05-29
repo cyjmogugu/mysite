@@ -1,0 +1,32 @@
+{% extends 'login/base.html'%}
+
+{% block title %}
+   首页
+{% endblock %}
+
+{% block content %}
+{% load static %}
+{% load staticfiles %}
+
+<body >
+<div class="col-sm-10">
+
+         <h1>欢迎{{ obj }}来到车站售票系统</h1>
+                {% if tip is not None %}
+                         <div class="alert alert-success" role="alert">
+                            <strong>成功!</strong> {{ tip }}
+                            </div>
+                    {% endif %}
+               {% if error is not None %}
+                         <div class="alert alert-warning" role="alert">
+                            <strong>注意!</strong> {{ error }}
+                            </div>
+               {% endif %}
+
+        <button type="button" class="btn btn-lg btn-default"><a  href="{% url 'login:车票信息' %}?obj={{ obj }}">点我购买车票</a></button>
+        <button type="button" class="btn btn-lg btn-default"><a  href="{% url 'login:个人中心' %}?obj={{ obj }}">进入个人中心</a></button>
+
+</div>
+</body>
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'login/base.html'%}
+
+{% block title %}
+   已购车票
+{% endblock %}
+
+{% block content %}
+<div class="col-sm-10">
+    <h2>欢迎{{ obj }}来到车站售票系统</h2>
+
+    {% if tip is not None %}{% comment %}证明此时要显示的是成功提示{% endcomment %}
+        <div class="alert alert-success" role="alert">
+            <strong>成功!</strong>{{ tip }}
+        </div>
+    {% elif error is not None %}
+        <div class="alert alert-warning" role="alert">
+        <strong>注意!</strong> {{ error }}
+      </div>
+
+    {% endif %}
+
+    <button  class="btn btn-sm btn-default"><a href="{% url 'login:个人中心' %}?obj={{ obj }}">回到个人中心</a></button>
+    <br><br>
+
+    <div class="panel panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">购买到的车票</h3>
+            </div>
+            <div class="panel-body">
+              <div class="col-md-16">
+                <table class="table table-striped">
+                    <tr>
+                        <td>车型</td>
+                        <td>始发站</td>
+                        <td>目的站</td>
+                        <td>发车日期</td>
+                        <td>类型</td>
+                        <td>数量</td>
+                        <td>用户名</td>
+                        <td>姓名</td>
+                        <td>身份证号</td>
+                        <td>购买时间</td>
+                        <td>相关操作</td>
+                    </tr>
+                    {% for item in detail %}
+                        <tr>
+                        <td>{{ item.tname }}</td>
+                        <td>{{ item.tsrc }}</td>
+                        <td>{{ item.tdet }}</td>
+                        <td>{{ item.tdate }}</td>
+                        <td>{{ item.type }}</td>
+                        <td>{{ item.num }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.realname }}</td>
+                        <td>{{ item.idnum }}</td>
+                        <td>{{ item.buytime }}</td>
+                        <td>
+                        <button  class="btn btn-default"><a  href="{% url 'login:已购车票' %}?obj={{ obj }}&tid={{ item.tid }}&id={{ item.id }}">退票</a></button>
+                        </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+              </div>
+            </div>
+          </div>
+</div>
+{% endblock %}

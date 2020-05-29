@@ -1,0 +1,77 @@
+{% load static %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/背景.css" />
+    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7/css/bootstrap.min.css' %}">
+    <script type="text/javascript"src="{% static 'jquery.min.js' %}"></script>
+    <script type="text/javascript"src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
+
+</head>
+<body class="class1">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">车站售票系统</a>
+
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+
+          <ul class="nav navbar-nav navbar-right">
+
+            <li><a href="{% url 'login:主页' %}?obj={{ obj }}">主页</a>
+            <li><a href="{% url 'login:登录' %}">登录</a></li>
+            <li><a href="{% url 'login:注册' %}">注册</a></li>
+            <li><a href="{% url 'login:退出' %}">退出</a></li></li>
+
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </nav>
+
+<div class="container-fluid">
+    ::before
+      <div class="row">
+          ::before
+        <div class="col-sm-3 col-md-2 sidebar">
+
+          <ul class="nav nav-sidebar">
+              ::before
+
+            <li style="margin-top:20px" class="active"><a href="{% url 'login:车票信息' %}?obj={{ obj }}">车票查询</a></li>
+            <li><a href="{% url 'login:个人中心' %}?obj={{ obj }}">个人中心</a></li>
+            <li><a href="{% url 'login:编辑个人信息' %}?obj={{ obj }}">修改资料</a></li>
+            <li><a href="{% url 'login:已购车票' %}?obj={{ obj }}">已购车票</a></li>
+            <li><a href="{% url 'login:票务修改' %}?obj={{ obj }}">票务修改</a></li>
+            <li><a href="{% url 'login:记录查询' %}?obj={{ obj }}">记录查询</a></li>
+          </ul>
+
+        </div>
+
+       {% block content %}{% endblock %}
+
+      </div>
+
+    </div>
+
+</body>
+
+
+</html>
+
+

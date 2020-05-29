@@ -1,0 +1,50 @@
+{% extends 'login/base.html'%}
+
+{% block title %}
+   个人中心
+{% endblock %}
+   {% block content %}
+<div class="col-sm-10">
+     <h1>欢迎你,{{ obj }}</h1> {% comment %}用户名{% endcomment %}
+
+    {% if error is not None %}
+    <div class="alert alert-warning" role="alert">
+        <strong>注意!</strong>{{ error }}
+      </div>
+    {% endif %}
+
+      {% comment %}显示用户详细信息{% endcomment %}
+      <div class="col-sm-10">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">详细资料</h4>
+            </div>
+            <div class="panel-body">
+              {% if detail is not None %}
+                  {% for item in detail %}
+                   <h3><span class="label label-info">用户名</span>
+                   {{ item.name }}
+                   </h3>
+
+                   <h3><span class="label label-info">密码</span>
+                    {{ item.password}}
+                   </h3>
+
+                   <h3><span class="label label-info">邮箱</span>
+                    {{ item.email }}
+                   </h3>
+
+                   {% endfor %}
+                {% endif %}
+            </div>
+          </div>
+
+
+        <button  class="btn btn-default"><a href="{% url 'login:主页' %}?obj={{ obj }}">回到主页</a></button>
+        <button class="btn btn-default"><a href="{% url 'login:已购车票' %}?obj={{ obj }}">已购车票</a></button>
+        <button class="btn  btn-default"><a href="{% url 'login:编辑个人信息' %}?obj={{ obj }}">编辑个人信息</a></button>
+        <button class="btn btn-default"><a href="{% url 'login:退出' %}">退出</a></button>
+
+
+</div>
+{% endblock %}

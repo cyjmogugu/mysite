@@ -1,0 +1,74 @@
+{% extends 'login/base.html'%}
+
+{% block title %}
+   记录查询
+{% endblock %}
+
+{% block content %}
+
+
+<div class="col-sm-10">
+    {% if obj is not None %}
+    <h2>欢迎{{ obj }}来到车站售票系统</h2>
+
+    {% else %}
+    <h2>欢迎来到车站售票系统</h2>
+    {% endif %}
+
+    {% if error is not None %}
+    <div class="alert alert-warning" role="alert">
+        <strong>注意!</strong>{{ error }}
+      </div>
+    {% endif %}
+
+{% if tip is not None %}
+    <div class="alert alert-success" role="alert">
+        <strong>成功!</strong>{{ tip }}
+      </div>
+    {% endif %}
+
+     <button  class="btn btn-sm btn-default"><a href="{% url 'login:主页' %}?obj={{ obj }}">回到首页</a></button>
+    <br><br>
+
+
+
+    <div class="panel panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">操作记录</h3>
+            </div>
+            <div class="panel-body">
+                <div  class="col-md-16">
+                    <table  class="table table-striped">
+                     <tr>
+                        <td>序号</td>
+                        <td>车号</td>
+                        <td>操作人</td>
+                        <td>真实姓名</td>
+                        <td>身份证号</td>
+                         <td>操作类型</td>
+                        <td>操作时间</td>
+                        </tr>
+                    {% for item in detail %}
+                        {% for peo in admin %}
+                     <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.tid }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ peo.realname }}</td>
+                        <td>{{ peo.idnum }}</td>
+                          <td>{{ item.type }}</td>
+                        <td>{{ item.modifytime }}</td>
+                     </tr>
+                 {% endfor %}
+                    {% endfor %}
+                          </table>
+                     </div>
+            </div>
+          </div>
+
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'login/base.html'%}
+{% load static %}
+{% load staticfiles %}
+{% block title %}
+   编辑个人信息
+{% endblock %}
+
+{% block content %}
+    <div class="col-sm-10">
+    {% if detail is not None %}
+     {% for item in detail %}
+        <h1>欢迎你{{ item.name }}</h1>
+
+         <div class="alert alert-warning" role="alert">
+        <strong>提醒!</strong> 用户名在该系统中不允许修改。
+      </div>
+       {% if error is not None %}
+           <div class="alert alert-danger" role="alert">
+        <strong>注意!</strong>{{ error }}
+      </div>
+       {% elif tip is not None %}
+           <div class="alert alert-success" role="alert">
+               <strong>成功!</strong> {{ tip }}
+           </div>
+       {% endif %}
+
+    <button  class="btn btn-default"><a href="{% url 'login:主页' %}?obj={{ item.name }}">回到主页</a></button>
+    <button  class="btn btn-default"><a href="{% url 'login:个人中心' %}?obj={{ item.name }}">个人中心</a></button>
+{% endfor %}
+    {% endif %}
+
+    <br><br>
+    {% comment %}显示用户详细信息{% endcomment %}
+      <div class="col-sm-10">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">详细资料</h3>
+            </div>
+            <div class="panel-body">
+              {% if detail is not None %}
+                  {% for item in detail %}
+                   <h3><span class="label label-info">用户名</span>
+                   {{ item.name }}
+                   </h3>
+
+                   <h3><span class="label label-info">密码</span>
+                    {{ item.password}}
+                   </h3>
+
+                   <h3><span class="label label-info">邮箱</span>
+                    {{ item.email }}
+                   </h3>
+
+                   {% endfor %}
+                {% endif %}
+            </div>
+          </div>
+
+    <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">修改个人信息</h3>
+            </div>
+            <div class="panel-body">
+               <form method="POST"action="">
+            {% csrf_token %}
+
+            <p>
+                <h4><span class="label label-info">新电子邮件地址</span>
+                <input type="email" name="email" placeholder="{{ detail.email }}">
+               </h4>
+
+            </p>
+             <p>
+                <h4><span class="label label-info">新密码:</span>
+               <input type="password" name="password1" ></h4>
+
+            </p>
+             <p>
+                <h4><span class="label label-info">确认密码:</span>
+               <input type="password" name="password2" ></h4>
+
+            </p>
+
+             <button type="submit"  class="btn btn-success">提交</button>
+
+        </form>
+
+
+            </div>
+          </div>
+    </div>
+{% endblock %}

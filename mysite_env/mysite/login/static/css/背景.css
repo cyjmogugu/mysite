@@ -1,0 +1,15 @@
+  .class1{
+            background-image:url("../image/4.jpg");
+            background-repeat: no-repeat;
+            background-size:100% 110%; /* 覆盖整个页面*/
+            background-attachment: fixed;  /*滑动窗口时背景图不动*/
+            margin: 0;
+            padding: 0;
+            opacity: 1;
+        }
+    h1{
+    color: rgb(255, 255, 255);
+    font-size: 80px;
+    font-weight: bold;
+}
+

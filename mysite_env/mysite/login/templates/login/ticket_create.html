@@ -1,0 +1,102 @@
+{% extends 'login/base.html'%}
+
+{% block title %}
+   新增车票信息
+{% endblock %}
+
+{% block content %}
+
+
+<div class="col-sm-10">
+    {% if obj is not None %}
+    <h2>欢迎{{ obj }}来到车站售票系统</h2>
+
+    {% else %}
+    <h2>欢迎来到车站售票系统</h2>
+    {% endif %}
+
+    {% if error is not None %}
+    <div class="alert alert-danger" role="alert">
+        <strong>注意!</strong>{{ error }}
+      </div>
+    {% endif %}
+
+{% if tip is not None %}
+    <div class="alert alert-success" role="alert">
+        <strong>成功!</strong>{{ tip }}
+      </div>
+    {% endif %}
+
+ <button  class="btn btn-sm btn-default"><a href="{% url 'login:主页' %}?obj={{ obj }}">回到首页</a></button>
+    <br><br>
+
+ <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">新增车票信息</h3>
+            </div>
+            <div class="panel-body">
+               <form method="POST"action="">
+            {% csrf_token %}
+
+            <p>
+                <h4><span class="label label-info">车型</span>
+                <input type="text" name="tname" >
+               </h4>
+
+            </p>
+             <p>
+                <h4><span class="label label-info">始发站</span>
+               <input type="text" name="src" ></h4>
+
+            </p>
+             <p>
+                <h4><span class="label label-info">目的站</span>
+               <input type="text" name="det" ></h4>
+
+            </p>
+             <p>
+                <h4><span class="label label-info">发车时间</span>
+               <input type="date" name="date" ></h4>
+
+            </p>
+            <p>
+                <h4><span class="label label-info">软卧票数</span>
+               <input type="text" name="soft" ></h4>
+
+            </p>
+            <p>
+                <h4><span class="label label-info">软卧价格</span>
+               <input type="text" name="softprice" ></h4>
+
+            </p>
+            <p>
+                <h4><span class="label label-info">硬卧票数</span>
+               <input type="text" name="hard" ></h4>
+
+            </p>
+            <p>
+                <h4><span class="label label-info">硬卧价格</span>
+               <input type="text" name="hardprice" ></h4>
+
+            </p>
+            <p>
+                <h4><span class="label label-info">硬座票数</span>
+               <input type="text" name="hardseat" ></h4>
+
+            </p>
+            <p>
+                <h4><span class="label label-info">硬座价格</span>
+               <input type="text" name="hardseatprice" ></h4>
+            </p>
+
+             <button type="submit"  class="btn btn-success">提交</button>
+
+        </form>
+
+
+            </div>
+          </div>
+
+</div>
+
+{% endblock %}

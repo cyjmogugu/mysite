@@ -1,0 +1,110 @@
+{% extends 'login/base.html'%}
+
+{% block title %}
+   车票信息修改
+{% endblock %}
+
+{% block content %}
+
+
+<div class="col-sm-10">
+    {% if obj is not None %}
+    <h2>欢迎{{ obj }}来到车站售票系统</h2>
+
+    {% else %}
+    <h2>欢迎来到车站售票系统</h2>
+    {% endif %}
+
+    {% if error is not None %}
+    <div class="alert alert-danger" role="alert">
+        <strong>注意!</strong>{{ error }}
+      </div>
+    {% endif %}
+
+{% if tip is not None %}
+    <div class="alert alert-success" role="alert">
+        <strong>成功!</strong>{{ tip }}
+      </div>
+    {% endif %}
+
+ <button  class="btn btn-sm btn-default"><a href="{% url 'login:主页' %}?obj={{ obj }}">回到首页</a></button>
+    <br><br>
+
+{% if tip is None %} {% comment %}tip用来返回管理员校验成功的信息火车票删除成功信息{% endcomment %}
+<div class="col-sm-8">
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <h3 class="panel-title">管理员身份验证</h3>
+            </div>
+            <div class="panel-body">
+                <h3><span class="label label-info">请输入管理员校验码：</span></h3>
+                <form action="" method="POST">
+                     {% csrf_token %}
+                    <input type="text" name="code" placeholder="请输入校验码">
+                    <button class="btn btn-success"type="submit">提交</button>
+                </form>
+            </div>
+          </div>
+            </div>
+
+
+
+{% else %}
+
+    <div class="panel panel-success">
+            <div class="panel-heading">
+              <h3 class="panel-title">车票信息 <button style="margin-left: 875px" class="btn btn-sm btn-default"><a href="{% url 'login:新增车票' %}?obj={{ obj }}">新增车票</a></button></h3>
+
+            </div>
+
+
+            <div class="panel-body">
+                <div  class="col-md-20">
+                    <table  class="table table-striped">
+                     <tr>
+                        <td>序号</td>
+                        <td>车型</td>
+                        <td>始发站</td>
+                        <td>目的站</td>
+                        <td>发车日期</td>
+                        <td>软卧余票</td>
+                        <td>软卧价格</td>
+                        <td>硬卧余票</td>
+                        <td>硬卧价格</td>
+                        <td>硬座余票</td>
+                        <td>硬座价格</td>
+                        <td>修改操作</td>
+                        <td>删除操作</td>
+                        </tr>
+                    {% for item in detail %}
+                     <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.src }}</td>
+                        <td>{{ item.det }}</td>
+                        <td>{{ item.date }}</td>
+                        <td>{{ item.soft }}</td>
+                        <td style="color: red">{{ item.softprice }}￥</td>
+                        <td>{{ item.hard }}</td>
+                        <td style="color: red">{{ item.hardprice }}￥</td>
+                        <td>{{ item.hardseat }}</td>
+                        <td style="color: red">{{ item.hardseatprice }}￥</td>
+                        <td>
+                        <button  class="btn btn-sm btn-default"><a href="{% url 'login:车票详细信息修改' %}?obj={{ obj }}&tid={{ item.id }}">车票修改</a></button>
+                        </td>
+                         <td>
+                        <button  class="btn btn-sm btn-default"><a href="{% url 'login:删除车票' %}?obj={{ obj }}&tid={{ item.id }}">删除车票</a></button>
+                        </td>
+                     </tr>
+                 {% endfor %}
+                          </table>
+                     </div>
+            </div>
+          </div>
+
+    </div>
+
+
+{% endif %}
+
+{% endblock %}

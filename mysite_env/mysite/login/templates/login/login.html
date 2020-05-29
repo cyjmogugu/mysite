@@ -1,0 +1,101 @@
+{% extends 'login/base.html'%}
+{% load static %}
+{% load staticfiles %}
+{% block title %}
+   登录
+{% endblock %}
+
+{% block content %}
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css" />
+ <script>
+     $(document).ready(function () { //页面加载完成时完成以下工作
+         var phonenum
+         $('#phonenum').blur(function () {  //元素设置失去焦点时进行这一项工作
+             var pn=this.value;  //获取输入的手机号
+             if(pn!=null&&pn.trim().length==11){  //判断输入的手机号是否符合要求
+                phonenum=pn
+                 $('#tip').html('手机号格式正确')
+                       $.ajax({
+                            url:'/code/',  //调用view中的发送短信验证码方法来操作
+                            type:'GET',
+                            data:{
+                                   phonenum:phonenum,
+                            },
+                                success:function (res) {
+                                 $('#tmes').html('验证码已发送')
+
+                                },
+                                fail:function(err){
+                                    console.log(err)
+                                 }
+                             })
+
+                }
+             else{
+                 $('#tip').html('手机号格式错误')
+             }
+         })
+
+     })
+
+</script>
+
+    <div class="col-sm-10">
+
+    {% if error is not None %}
+        <br>
+    <div class="alert alert-warning" role="alert">
+        <strong>警告!</strong> {{ error }}
+      </div>
+       {% endif %}
+
+    <h3 id="tmes"></h3> {% comment %}提醒用户验证码发送是否成功{% endcomment %}
+
+    </div>
+    <div class="loginbox">
+        <img src="../../static/image/用户.png" >
+        <h2>账号登录</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <p>
+            <label for="id_username">用户名:</label>
+            <input type="text" name="name" >
+        </p>
+
+        <p>
+            <label for="id_password1">密码:</label>
+            <input type="password" name="password1">
+
+        </p>
+
+
+        <p >
+
+            <label>手机号:</label>
+            <input style="width: 130px;height: 35px" type="text" name="phonenum" id="phonenum">
+            <button class="btn btn-sm btn-success" type="button">获取验证码</button>
+            <span id="tip"></span>
+        </p>
+        <p>
+
+            <label>验证码:</label>
+            <input type="text" name="code">
+
+
+        </p>
+
+
+
+             <button style="margin-left: 30px" class="btn btn-default"type="submit">登录账号</button>
+
+             <button class="btn btn-default"style="margin-left: 10px"><a href="{% url 'login:主页' %}">返回主页</a></button>
+
+    </form>
+</div>
+
+{% endblock %}
+
+
